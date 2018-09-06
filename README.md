@@ -2,9 +2,9 @@
 
 [![Build Status](https://travis-ci.org/JonShort/keys-to-camelcase.svg?branch=master)](https://travis-ci.org/JonShort/keys-to-camelcase)
 
-> Convert object keys to camelCase using [`camelcase`](https://github.com/sindresorhus/camelcase)
+:building_construction: Convert object keys to camelCase using [`camelcase`](https://github.com/sindresorhus/camelcase) :building_construction:
 
-:thumbsup: Can be used within node or the browser.
+:thumbsup: Can be used within node or the browser :thumbsup:
 
 :rocket: This fork plays nicely with tools like [uglifyjs-webpack-plugin](https://github.com/webpack-contrib/uglifyjs-webpack-plugin) :rocket:
 
@@ -104,5 +104,5 @@ keysToCamelcase(
 
 ## License
 
-MIT © [Sindre Sorhus](https://sindresorhus.com)
+MIT © [Sindre Sorhus](https://sindresorhus.com)  
 MIT © [Jon Short](https://jonshort.me)
