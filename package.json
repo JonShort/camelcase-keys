@@ -1,24 +1,29 @@
 {
-  "name": "camelcase-keys",
-  "version": "4.2.0",
+  "name": "keys-to-camelcase",
+  "version": "0.0.1",
   "description": "Convert object keys to camelCase",
   "license": "MIT",
-  "repository": "sindresorhus/camelcase-keys",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JonShort/keys-to-camelcase"
+  },
   "author": {
-    "name": "Sindre Sorhus",
-    "email": "sindresorhus@gmail.com",
-    "url": "sindresorhus.com"
+    "name": "Jon Short",
+    "url": "https://jonshort.me"
   },
   "engines": {
     "node": ">=4"
   },
   "scripts": {
-    "test": "xo && ava",
-    "bench": "matcha bench/bench.js"
+    "bench": "matcha bench/bench.js",
+    "build": "rimraf lib/ && babel src -d lib --ignore **/*.test.js",
+    "clean": "rimraf lib/",
+    "test": "ava"
   },
   "files": [
-    "index.js"
+    "lib/index.js"
   ],
+  "main": "lib/index.js",
   "keywords": [
     "map",
     "obj",
@@ -43,7 +48,8 @@
     "convert",
     "deep",
     "recurse",
-    "recursive"
+    "recursive",
+    "browser"
   ],
   "dependencies": {
     "camelcase": "^4.1.0",
@@ -51,18 +57,27 @@
     "quick-lru": "^1.0.0"
   },
   "devDependencies": {
-    "ava": "*",
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "ava": "1.0.0-beta.8",
+    "babel-preset-minify": "^0.4.3",
+    "husky": "^1.0.0-rc.13",
+    "lint-staged": "^7.2.2",
     "matcha": "^0.7.0",
-    "xo": "*"
+    "prettier": "^1.14.2",
+    "rimraf": "^2.6.2"
   },
-  "xo": {
-    "overrides": [
-      {
-        "files": "bench/bench.js",
-        "rules": {
-          "import/no-unresolved": "off"
-        }
-      }
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm run test"
+    }
+  },
+  "lint-staged": {
+    "*.{jsx,js,json}": [
+      "prettier --write",
+      "git add"
     ]
   }
 }

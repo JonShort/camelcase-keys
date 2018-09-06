@@ -1,1 +1,10 @@
-node_modules
+# Directories
+.vscode/
+lib/
+node_modules/
+package-lock.json/
+
+
+# Files
+*.tgz
+yarn-error.log
