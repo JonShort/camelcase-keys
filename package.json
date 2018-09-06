@@ -12,7 +12,7 @@
     "url": "https://jonshort.me"
   },
   "engines": {
-    "node": ">=4"
+    "node": ">=6"
   },
   "scripts": {
     "bench": "matcha bench/bench.js",
