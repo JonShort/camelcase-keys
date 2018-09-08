@@ -1,6 +1,6 @@
 {
   "name": "keys-to-camelcase",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Convert object keys to camelCase",
   "license": "MIT",
   "repository": {
