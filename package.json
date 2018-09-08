@@ -15,15 +15,18 @@
     "node": ">=6"
   },
   "scripts": {
-    "bench": "matcha bench/bench.js",
-    "build": "rimraf lib/ && babel src -d lib --ignore **/*.test.js",
+    "build": "rimraf lib/ && rollup -c",
     "clean": "rimraf lib/",
     "test": "ava"
   },
   "files": [
-    "lib/index.js"
+    "lib/index.cjs.js",
+    "lib/index.es.js",
+    "lib/index.umd.js"
   ],
-  "main": "lib/index.js",
+  "browser": "lib/index.umd.js",
+  "main": "lib/index.cjs.js",
+  "module": "lib/index.es.js",
   "keywords": [
     "map",
     "obj",
@@ -61,12 +64,15 @@
     "@babel/core": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "ava": "1.0.0-beta.8",
-    "babel-preset-minify": "^0.4.3",
     "husky": "^1.0.0-rc.13",
     "lint-staged": "^7.2.2",
-    "matcha": "^0.7.0",
     "prettier": "^1.14.2",
-    "rimraf": "^2.6.2"
+    "rimraf": "^2.6.2",
+    "rollup": "^0.65.2",
+    "rollup-plugin-babel": "^4.0.3",
+    "rollup-plugin-commonjs": "^9.1.6",
+    "rollup-plugin-node-resolve": "^3.4.0",
+    "rollup-plugin-terser": "^2.0.2"
   },
   "husky": {
     "hooks": {
