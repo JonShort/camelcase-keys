@@ -43,6 +43,18 @@ test('deep option', t => {
   t.deepEqual(updatedObject, expectedObject);
 });
 
+test('nested arrays', t => {
+  const originalObject = {
+    q_w_e: [['a', 'b']],
+  };
+  const updatedObject = camelCaseKeys(originalObject, { deep: true });
+  const expectedObject = {
+    qWE: [['a', 'b']],
+  };
+
+  t.deepEqual(updatedObject, expectedObject);
+});
+
 test('accepts an array of objects', t => {
   const originalArray = [
     { foo_bar: true },
