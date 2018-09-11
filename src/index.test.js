@@ -47,7 +47,7 @@ test('nested arrays', t => {
   const originalObject = {
     q_w_e: [['a', 'b']],
   };
-  const updatedObject = camelCaseKeys(originalObject, { deep: true });
+  const updatedObject = keysToCamelcase(originalObject, { deep: true });
   const expectedObject = {
     qWE: [['a', 'b']],
   };
