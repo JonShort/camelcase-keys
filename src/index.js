@@ -1,49 +1,60 @@
-'use strict';
-const mapObj = require('map-obj');
-const camelCase = require('camelcase');
-const QuickLru = require('quick-lru');
+import mapObj from 'map-obj';
+import camelCase from 'camelcase';
+import QuickLRU from 'quick-lru';
 
-const has = (arr, key) =>
-  arr.some(x => (typeof x === 'string' ? x === key : x.test(key)));
-const cache = new QuickLru({ maxSize: 100000 });
+const doesExclusionMatchKey = (exclusion, key) => {
+  if (typeof exclusion === 'string') {
+    return exclusion === key;
+  } else {
+    return exclusion.test(key);
+  }
+};
 
-const camelCaseConvert = (input, opts) => {
-  opts = Object.assign(
-    {
-      deep: false,
-    },
-    opts
+const isKeyExcluded = (exclusionsArray, key) => {
+  if (!exclusionsArray) {
+    return false;
+  }
+
+  return exclusionsArray.some(exclusion =>
+    doesExclusionMatchKey(exclusion, key)
   );
+};
 
-  const exclude = opts.exclude;
+const cache = new QuickLRU({ maxSize: 100000 });
 
+const convertKeysToCamelcase = (input, { deep = false, exclude } = {}) => {
   return mapObj(
     input,
     (key, val) => {
-      if (!(exclude && has(exclude, key))) {
+      if (!isKeyExcluded(exclude, key)) {
         if (cache.has(key)) {
           key = cache.get(key);
         } else {
-          const ret = camelCase(key);
+          const camelcasedKey = camelCase(key);
 
           if (key.length < 100) {
             // Prevent abuse
-            cache.set(key, ret);
+            cache.set(key, camelcasedKey);
           }
 
-          key = ret;
+          key = camelcasedKey;
         }
       }
 
       return [key, val];
     },
-    { deep: opts.deep }
+    { deep }
   );
 };
 
-module.exports = (input, opts) => {
+const keysToCamelcase = (input, options) => {
   if (Array.isArray(input)) {
-    return Object.keys(input).map(key => camelCaseConvert(input[key], opts));
+    return input.map(sourceObject =>
+      convertKeysToCamelcase(sourceObject, options)
+    );
   }
-  return camelCaseConvert(input, opts);
+
+  return convertKeysToCamelcase(input, options);
 };
+
+export default keysToCamelcase;

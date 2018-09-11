@@ -1,23 +1,23 @@
 import test from 'ava';
-import camelCaseKeys from './index';
+import keysToCamelcase from './index';
 
 test('basic usage', t => {
   const originalObject = { 'foo-bar': true };
-  const updatedObject = camelCaseKeys(originalObject);
+  const updatedObject = keysToCamelcase(originalObject);
 
   t.true(!!updatedObject.fooBar);
 });
 
 test('exclude option - basic', t => {
   const originalObject = { '--': true };
-  const updatedObject = camelCaseKeys(originalObject, { exclude: ['--'] });
+  const updatedObject = keysToCamelcase(originalObject, { exclude: ['--'] });
 
   t.true(!!updatedObject['--']);
 });
 
 test('exclude option - regex', t => {
   const originalObject = { 'foo-bar': true, 'bar-foo': true };
-  const updatedObject = camelCaseKeys(originalObject, { exclude: [/^f/] });
+  const updatedObject = keysToCamelcase(originalObject, { exclude: [/^f/] });
   const expectedObject = { 'foo-bar': true, barFoo: true };
 
   t.deepEqual(updatedObject, expectedObject);
@@ -31,7 +31,7 @@ test('deep option', t => {
       arr: [{ three_four: true }],
     },
   };
-  const updatedObject = camelCaseKeys(originalObject, { deep: true });
+  const updatedObject = keysToCamelcase(originalObject, { deep: true });
   const expectedObject = {
     fooBar: true,
     obj: {
@@ -49,7 +49,7 @@ test('accepts an array of objects', t => {
     { bar_foo: false },
     { 'bar-foo': 'false' },
   ];
-  const updatedArray = camelCaseKeys(originalArray);
+  const updatedArray = keysToCamelcase(originalArray);
   const expectedArray = [
     { fooBar: true },
     { barFoo: false },
