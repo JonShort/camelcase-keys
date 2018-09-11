@@ -22,7 +22,7 @@
   "files": [
     "lib/index.cjs.js",
     "lib/index.es.js",
-    "lib/index.umd.js"
+    "lib/index.iife.js"
   ],
   "browser": "lib/index.iife.js",
   "main": "lib/index.cjs.js",
